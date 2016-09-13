@@ -1,0 +1,52 @@
+html body {
+	margin: 0px auto;
+	padding: 0px auto;
+	min-width: 790px;
+}
+
+#banner {
+	width: 100vw;
+	margin: 0 auto;
+	position: absolute;
+	background-color: grey;
+	min-width: 790px;
+}
+
+#banner div {
+	text-align: center;
+	padding: 0px auto;
+	margin: 0px auto;
+}
+
+#navbar {
+	text-align: center;
+}
+
+#navbar div {
+	display: inline-block;
+	border: 1px solid black;
+	font-size: 1.1em;
+	padding-left: 5px;
+	padding-right: 5px;
+	width: 10%;
+	min-width: 10%;
+}
+
+#navbar div:hover {
+	background-color: purple;
+}
+
+#center {
+	height: 80vh;
+	background-color: blue;
+}
+
+#footer {
+	height: 10vh;
+	background-color: red;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
