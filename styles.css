@@ -1,25 +1,33 @@
 html body {
 	margin: 0px auto;
-	padding: 0px auto;
-	min-width: 790px;
+	background-color: #BD639F;
 }
 
 #banner {
 	width: 100vw;
 	margin: 0 auto;
-	position: absolute;
-	background-color: grey;
-	min-width: 790px;
+	position: fixed;
+	background-color: #84456F;
+}
+
+#banner .container {
+	width: 80vw;
+	min-height: 10vh;
+	background-color: #2E666F;
+	position: relative;
+	margin: 0px auto;
 }
 
 #banner div {
+	width: 80vw;
+	min-width: 790px;
 	text-align: center;
-	padding: 0px auto;
 	margin: 0px auto;
 }
 
 #navbar {
 	text-align: center;
+	padding-top: 10px;
 }
 
 #navbar div {
@@ -33,20 +41,37 @@ html body {
 }
 
 #navbar div:hover {
-	background-color: purple;
+	background-color: #BD639F;
 }
 
 #center {
-	height: 80vh;
-	background-color: blue;
+	width: 80vw;
+	height: 75vh;
+	margin-left: 10vw;
+	position: fixed;
+	bottom: 15vh;
+	background-color: #234D54;
 }
 
 #footer {
-	height: 10vh;
-	background-color: red;
+	width: 80vw;
+	height: 15vh;
+	margin-left: 10vw;
+	margin-top: 90vw;
+	position: fixed;
+	bottom: 0;
+	background-color: #18363A;
 }
 
-a {
+a, div {
 	text-decoration: none;
-	color: black;
+	color: white;
+}
+
+.bigger {
+	font-size: 2.2em;
+}
+
+.min-width {
+	min-width: 790px;
 }
