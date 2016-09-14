@@ -1,6 +1,7 @@
 html body {
 	margin: 0px auto;
 	background-color: #BD639F;
+	overflow: visable;
 }
 
 #banner {
@@ -45,21 +46,31 @@ html body {
 }
 
 #center {
-	width: 80vw;
+	width: 100vw;
 	height: 75vh;
-	margin-left: 10vw;
 	position: fixed;
 	bottom: 15vh;
+}
+
+#information {
+	width: 80%;
+	height: 100%;
+	margin: 0px auto;
 	background-color: #234D54;
 }
 
-#footer {
-	width: 80vw;
+#bottom {
+	width: 100vw;
 	height: 15vh;
-	margin-left: 10vw;
 	margin-top: 90vw;
 	position: fixed;
 	bottom: 0;
+}
+
+#footer {
+	width: 80%;
+	height: 100%;
+	margin: 0px auto;
 	background-color: #18363A;
 }
 
