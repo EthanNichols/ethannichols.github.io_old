@@ -1,0 +1,75 @@
+@font-face {
+	font-family: pixelFont;
+	src: url(fonts/FFFFORWA.TTF);
+}
+
+@keyframes example {
+	0% {background-image: url(images/image1.png); background-size: 100vw 100vw;}
+	50% {background-image: url(images/image2.png); background-size: 100vw 100vw;}
+	100% {background-image: url(images/image1.png); background-size: 100vw 100vw;}
+}
+
+html body {
+	margin: 0px auto;
+	width: 100vw;
+	height: 100vh;
+	background-image: url(images/background.gif);
+	background-size: 100vw 100vw;
+	overflow: hidden;
+	font-family: pixelFont;
+}
+
+header {
+	position: fixed;
+	width: 100vw;
+	height: 100px;
+}
+
+header div{
+	float: left;
+	color: white;
+	font-size: 1.3vh;
+	padding-left: 2vw;
+	padding-right: 2vw;
+	padding-top: 1vh;
+	height: 60px;
+	text-align: center;
+}
+
+#center {
+	position: fixed;
+	width: 100vw;
+	height: calc(100vh - 16vh);
+	margin-top: 9vh;
+}
+
+.animation {
+	height: 100%;
+	width: 100%;
+	animation-name: example;
+	animation-duration: 10s;
+	animation-iteration-count: infinite;
+}
+
+footer {
+	position: fixed;
+	width: 100vw;
+	height: 75px;
+	margin-top: calc(100vh - 60px);
+	align-content: center;
+}
+
+footer div{
+	float: left;
+	color: white;
+	font-size: 1.5vw;
+	padding-left: 1.5vw;
+	padding-right: 1.5vw;
+	height: 60px;
+	line-height: 60px;
+	text-align: center;
+}
+
+.largerFont {
+	font-size: 5vh;
+}
