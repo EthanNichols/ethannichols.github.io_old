@@ -1,6 +1,6 @@
 @font-face {
 	font-family: pixelFont;
-	src: url(fonts/FFFFORWA.TTF);
+	src: url(fonts/conthraz.ttf);
 }
 
 @keyframes example {
@@ -13,8 +13,9 @@ html body {
 	margin: 0px auto;
 	width: 100vw;
 	height: 100vh;
-	background-image: url(images/background.gif);
-	background-size: 100vw 100vw;
+	background-color: #081828;
+	background-image: url(images/rain2.agif);
+	background-size: 100px 100px;
 	overflow: hidden;
 	font-family: pixelFont;
 }
@@ -23,15 +24,17 @@ header {
 	position: fixed;
 	width: 100vw;
 	height: 100px;
+	background-image: url(images/rain2.agif);
+	background-size: 100px 100px;
 }
 
 header div{
+	position: fixed;
 	float: left;
+	left: 500px;
 	color: white;
-	font-size: 1.3vh;
-	padding-left: 2vw;
-	padding-right: 2vw;
-	padding-top: 1vh;
+	font-size: 30px;
+	padding: 5px;
 	height: 60px;
 	text-align: center;
 }
@@ -39,8 +42,8 @@ header div{
 #center {
 	position: fixed;
 	width: 100vw;
-	height: calc(100vh - 16vh);
-	margin-top: 9vh;
+	height: calc(100vh - 100px - 20px);
+	margin-top: 80px;
 }
 
 .animation {
@@ -55,21 +58,25 @@ footer {
 	position: fixed;
 	width: 100vw;
 	height: 75px;
-	margin-top: calc(100vh - 60px);
+	margin-top: calc(100vh - 30px);
+	margin-bottom: 0px;
 	align-content: center;
+	background-image: url(images/rain2.agif);
+	background-size: 100px 100px;
 }
 
 footer div{
 	float: left;
 	color: white;
-	font-size: 1.5vw;
+	font-size: 30px;
 	padding-left: 1.5vw;
 	padding-right: 1.5vw;
-	height: 60px;
-	line-height: 60px;
-	text-align: center;
+	padding-top: 20px;
+	transform: translateY(-20px);
+	line-height: 20px;
 }
 
 .largerFont {
-	font-size: 5vh;
+	font-size: 70px;
+	left: 10px;
 }
