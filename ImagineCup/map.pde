@@ -67,7 +67,7 @@ class map {
     }
     
     //Draw the tile
-    image(tileImage, posX * 100, posY * 100);
+    image(tileImage, posX + posXOffset, posY + posYOffset);
   }
 }
 
