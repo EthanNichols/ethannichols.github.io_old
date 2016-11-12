@@ -67,7 +67,7 @@ class map {
     }
     
     //Draw the tile
-    image(tileImage, posX + posXOffset, posY + posYOffset);
+    image(tileImage, posX * 100, posY * 100);
   }
 }
 
@@ -77,8 +77,8 @@ void createMap() {
   int tileNum = 0;
   
   //For loops to set the grid X, Y position
-  for (int x=0; x < 20; x++) {
-    for (int y=0; y < 20; y++) {
+  for (int x=0; x < 7; x++) {
+    for (int y=0; y < 7; y++) {
       
       //Increase the amount of tiles that have been made
       tileNum++;
