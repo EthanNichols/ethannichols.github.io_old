@@ -67,7 +67,7 @@ class map {
     }
     
     //Draw the tile
-    image(tileImage, posX + posXOffset, posY + posYOffset);
+    image(tileImage, gridX * tileImage.width, gridY * tileImage.height);
   }
 }
 
