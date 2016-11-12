@@ -66,8 +66,11 @@ class map {
       tint(playerColor, 25);
     }
     
+    int x = posX + posXOffset;
+    int y = posY + posYOffset;
+    
     //Draw the tile
-    image(tileImage, gridX * tileImage.width, gridY * tileImage.height);
+    image(tileImage, x, y);
   }
 }
 
