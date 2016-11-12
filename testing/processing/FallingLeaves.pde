@@ -3,6 +3,8 @@ int[] xPos = new int[numberLeaves];
 int[] yPos = new int[numberLeaves];
 color[] leafColor = new color[numberLeaves];
 
+PImage leafImage;
+
 void setup()
 {
   // setup window size
@@ -16,6 +18,8 @@ void setup()
     yPos[i] = (int) random(-5000,600);
     leafColor[i] = color((int)random(100,255),(int)random(0,140),0); 
   }
+  
+  leafImage = loadImage("d4.png");
 }
 
 void draw()
@@ -38,8 +42,8 @@ void DrawGround()
 
 void DrawLeaf(int leaf)
 {
-  fill(leafColor[leaf]);
-  ellipse(xPos[leaf], yPos[leaf], 50,25);
+  tint(leafColor[leaf]);
+  image(leafImage, xPos[leaf], yPos[leaf]);
 }
 
 void DrawLeaves()
