@@ -1,4 +1,7 @@
 
+int mapWidth = 5;
+int mapHeight = mapWidth;
+
 map[] tile = {};
 
 class map {
@@ -57,9 +60,9 @@ class map {
     //Test if a player owns the tile
     //Set the color of the tile to the player
     if (playerColor != 255) {
-      tint(playerColor, 75);
+      tint(playerColor, 150);
     } else {
-      tint(playerColor, 255);
+      tint(255, 255);
     }
     
     if (selected) {
@@ -74,14 +77,17 @@ class map {
   }
 }
 
-void createMap() {
+void createMap(int size) {
+  
+  mapWidth = size;
+  mapHeight = size;
   
   //Local variable to know how many dice have been created
   int tileNum = 0;
   
   //For loops to set the grid X, Y position
-  for (int x=0; x < 7; x++) {
-    for (int y=0; y < 7; y++) {
+  for (int x=0; x < mapWidth; x++) {
+    for (int y=0; y < mapHeight; y++) {
       
       //Increase the amount of tiles that have been made
       tileNum++;

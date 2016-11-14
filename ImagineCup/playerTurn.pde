@@ -23,10 +23,10 @@ void selectTile() {
   for (int i=0; i<tile.length; i++) {
     
     //Test the center area of the hexagon
-    if (mouseX > tile[i].posX + tile[i].posXOffset && 
-    mouseX < tile[i].posX + tile[i].posXOffset + tile[i].tileImage.width - 1 &&
-    mouseY > tile[i].posY + tile[i].posYOffset + 35 &&
-    mouseY < tile[i].posY + tile[i].posYOffset + tile[i].tileImage.height - 35) {
+    if (mouseX >= tile[i].posX + tile[i].posXOffset && 
+    mouseX <= tile[i].posX + tile[i].posXOffset + tile[i].tileImage.width - 1 &&
+    mouseY >= tile[i].posY + tile[i].posYOffset + 35 &&
+    mouseY <= tile[i].posY + tile[i].posYOffset + tile[i].tileImage.height - 35) {
       selectionID = tile[i].id;
       
     //Test the upper Left hand corner of the hexagon
@@ -119,14 +119,14 @@ void secondPlayerSelection(int selectedTile, int selectionID) {
       //Test for tiles around the first selected tile
       //Set that tile to be selected
       //Set that the dice can move
-      if (tile[i].id == selectedTile + 1) {tile[i].selected = true; move = true;}
-      if (tile[i].id == selectedTile - 1) {tile[i].selected = true; move = true;}
-      if (tile[i].id == selectedTile - 19) {tile[i].selected = true; move = true;}
-      if (tile[i].id == selectedTile - 20) {tile[i].selected = true; move = true;}
-      if (tile[i].id == selectedTile - 21) {tile[i].selected = true; move = true;}
-      if (tile[i].id == selectedTile + 19) {tile[i].selected = true; move = true;}
-      if (tile[i].id == selectedTile + 20) {tile[i].selected = true; move = true;}
-      if (tile[i].id == selectedTile + 21) {tile[i].selected = true; move = true;}
+      if (tile[i].id == selectedTile + 1) {tile[i].selected = true; move = true; break;}
+      if (tile[i].id == selectedTile - 1) {tile[i].selected = true; move = true; break;}
+      if (tile[i].id == selectedTile - (mapWidth - 1)) {tile[i].selected = true; move = true; break;}
+      if (tile[i].id == selectedTile - mapWidth) {tile[i].selected = true; move = true; break;}
+      if (tile[i].id == selectedTile - (mapWidth + 1)) {tile[i].selected = true; move = true; break;}
+      if (tile[i].id == selectedTile + (mapWidth - 1)) {tile[i].selected = true; move = true; break;}
+      if (tile[i].id == selectedTile + mapWidth) {tile[i].selected = true; move = true; break;}
+      if (tile[i].id == selectedTile + (mapWidth + 1)) {tile[i].selected = true; move = true; break;}
     }
   }
   

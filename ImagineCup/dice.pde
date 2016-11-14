@@ -118,12 +118,14 @@ void moveDice(int startPos, int endPos) {
         
         //Test for the tile that the dice started in
         //Set that there is no occupying dice in the tile
+        
         if (tile[t].id == startPos) {
           tile[t].occupied = false;   
         }
         
         //Test for the tile that the dice is moving to
         if (tile[t].id == endPos && tile[t].occupied) {
+          
           attack = true;
           diceAttack(startPos, endPos);
           break;
@@ -146,6 +148,7 @@ void moveDice(int startPos, int endPos) {
         }
         
         if (!attack) {
+          
           //Move the die to its new location
           //Set the new X and Y location for the die
           //Set that the die has been moved
@@ -153,6 +156,8 @@ void moveDice(int startPos, int endPos) {
           die[i].posX = x;
           die[i].posY = y;
           die[i].moved = true;
+          
+          updateTileAmount();
         }
       }
     }
@@ -160,6 +165,9 @@ void moveDice(int startPos, int endPos) {
 }
 
 void diceAttack(int startPos, int endPos) {
+  
+  
+  boolean sameTeam = false;
   
   int playerTile1 = 0;
   int playerTile2 = 0;
@@ -186,6 +194,8 @@ void diceAttack(int startPos, int endPos) {
         die2 = die[d].sides;
       }
     }
+  } else if (playerTile1 == playerTile2) {
+    sameTeam = true;
   }
   
   int dieRoll1 = floor(random(die1) + 1);
@@ -196,34 +206,38 @@ void diceAttack(int startPos, int endPos) {
     attackerWin = true;
   }
   
-  for (int d=0; d<die.length; d++) {
-    if (attackerWin) {
-      if (die[d].tileID == endPos) {
-        die[d].tileID = -100;
-        die[d].posX = -100;
-        die[d].posY = -100;
-        die[d].moved = true;
+  if (!sameTeam) {
+    for (int d=0; d<die.length; d++) {
+      if (attackerWin) {
+        if (die[d].tileID == endPos) {
+          die[d].tileID = -100;
+          die[d].posX = -100;
+          die[d].posY = -100;
+          die[d].moved = true;
         
-        for (int t=0; t<tile.length; t++) {
-          if (tile[t].id == endPos || tile[t].id == startPos) {
-            tile[t].occupied = false;
+          for (int t=0; t<tile.length; t++) {
+            if (tile[t].id == endPos || tile[t].id == startPos) {
+              tile[t].occupied = false;
+            }
           }
+         
+          setAttackVariables(playerTile1, playerTile2, die1, die2, dieRoll1, dieRoll2, startPos, endPos);
+          break;
         }
+      } else {
+        if (die[d].tileID == startPos) {
+          die[d].tileID = -100;
+          die[d].posX = -100;
+          die[d].posY = -100;
+          die[d].moved = true;
         
-        moveDice(startPos, endPos);
-        break;
-      }
-    } else {
-      if (die[d].tileID == startPos) {
-        die[d].tileID = -100;
-        die[d].posX = -100;
-        die[d].posY = -100;
-        die[d].moved = true;
-        
-        for (int t=0; t<tile.length; t++) {
-          if (tile[t].id == startPos) {
-            tile[t].occupied = false;
-            break;
+          for (int t=0; t<tile.length; t++) {
+            if (tile[t].id == startPos) {
+              tile[t].occupied = false;
+              
+              setAttackVariables(playerTile1, playerTile2, die1, die2, dieRoll1, dieRoll2, startPos, endPos);
+              break;
+            }
           }
         }
       }
@@ -256,27 +270,30 @@ void fillUnoccupiedTiles() {
   //Get inforamtion about the players
   for (int p=0; p<player.length; p++) {
     
-    //Test for the player who's taking their turn
     if (player[p].playerTurn) {
       for (int t=0; t<tile.length; t++) {
-        
-        if (player[p].id == tile[t].player && tile[t].occupied) {
-          for (int d=0; d<die.length; d++) {
-            if (player[p].id == die[d].playerID) {
-              die[d].sides += 2;
-              
+        if (tile[t].player == player[p].id) {
+                  
+          if (tile[t].occupied) {
+            
+            for (int d=0; d<die.length; d++) {
+              if (die[d].tileID == tile[t].id) {
+                die[d].sides += 2;
+              }
+            
               if (die[d].sides > 12) {
                 die[d].sides = 20;
               }
             }
+          } else {
+            
+            int x = tile[t].posX + tile[t].posXOffset + tile[t].tileImage.width / 2;
+            int y = tile[t].posY  + tile[t].posYOffset + tile[t].tileImage.height / 2;
+            
+            tile[t].occupied = true;
+            
+            createDie(x, y, 4, player[p].id, tile[t].id);
           }
-        } else if (player[p].id == tile[t].player && !tile[t].occupied) {
-      
-          //Local X and Y variables for the center of the tile
-          int x = tile[t].posX + tile[t].posXOffset + tile[t].tileImage.width / 2;
-          int y = tile[t].posY  + tile[t].posYOffset + tile[t].tileImage.height / 2;
-        
-          createDie(x, y, 4, player[p].id, tile[t].id);
         }
       }
     }

@@ -11,10 +11,13 @@ void drawInterface() {
 
 void interfaceNextTurn(int infoWidth, int spot) {
   
+  fill(255);
+  rect(spot * infoWidth + 5, height - 175, infoWidth - 5, 150);
+  
   //Set the text size
   //Set the fill color
   //Center the text
-  textSize(20);
+  textSize(25);
   fill(0);
   textAlign(CENTER, CENTER);
   
@@ -54,8 +57,18 @@ void nextTurn() {
         i -= player.length;
       }
       
+      int nextPlayer = i + 1;
+      
+      while (player[nextPlayer].tiles == 0) {
+        nextPlayer++;
+        
+        if (nextPlayer >= player.length) {
+          nextPlayer -= player.length;
+        }
+      }
+      
       //Set the next player's turn to be true
-      player[i + 1].playerTurn = true;
+      player[nextPlayer].playerTurn = true;
       break;
     }
   }
@@ -64,4 +77,6 @@ void nextTurn() {
   //Fill unoccupied tiles with basic dice
   resetDiceMovement();
   fillUnoccupiedTiles();
+  
+  testWinner();
 }
