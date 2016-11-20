@@ -4,9 +4,11 @@
 }
 
 @keyframes example {
-	0% {background-image: url(images/evoDiceWars.png); background-size: 100% 100%}
-	50% {background-image: url(images/image2.png); background-size: 100% 100%}
-	100% {background-image: url(images/image1.png); background-size: 100% 100%;}
+	0% {background-image: url(images/evoDiceWars.png); background-size: 100% 100%;}
+	49% {background-image: url(images/evoDiceWars.png); background-size: 100% 100%;}
+	50% {background-image: url(images/ancientPuzzle.png); background-size: 100% 100%}
+	99% {background-image: url(images/ancientPuzzle.png); background-size: 100% 100%}
+	100% {background-image: url(images/evoDiceWars.png); background-size: 100% 100%;}
 }
 
 html body {
@@ -23,7 +25,7 @@ header {
 	position: fixed;
 	width: 100vw;
 	height: 100px;
-	background-image: url(images/rain.agif);
+	background-image: url(images/rain2.agif);
 	background-size: 100px 100px;
 }
 
@@ -50,6 +52,7 @@ header div{
 	width: 100%;
 	animation-name: example;
 	animation-duration: 30s;
+	animation-timing-function: linear;
 	animation-iteration-count: infinite;
 }
 
