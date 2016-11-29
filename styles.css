@@ -5,9 +5,13 @@
 
 @keyframes example {
 	0% {background-image: url(images/evoDiceWars.png); background-size: 100% 100%;}
-	49% {background-image: url(images/evoDiceWars.png); background-size: 100% 100%;}
-	50% {background-image: url(images/ancientPuzzle.png); background-size: 100% 100%}
-	99% {background-image: url(images/ancientPuzzle.png); background-size: 100% 100%}
+	24% {background-image: url(images/evoDiceWars.png); background-size: 100% 100%;}
+	25% {background-image: url(images/ancientPuzzle.png); background-size: 100% 100%}
+	49% {background-image: url(images/ancientPuzzle.png); background-size: 100% 100%}
+	50% {background-image: url(images/galaxyVendetta.png); background-size: 100% 100%}
+	74% {background-image: url(images/galaxyVendetta.png); background-size: 100% 100%}
+	75% {background-image: url(images/mapGeneration.png); background-size: 100% 100%}
+	99% {background-image: url(images/mapGeneration.png); background-size: 100% 100%}
 	100% {background-image: url(images/evoDiceWars.png); background-size: 100% 100%;}
 }
 
