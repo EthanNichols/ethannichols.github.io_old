@@ -3,18 +3,6 @@
 	src: url(fonts/conthraz.ttf);
 }
 
-@keyframes example {
-	0% {background-image: url(images/evoDiceWars.png); background-size: 100% 100%;}
-	24% {background-image: url(images/evoDiceWars.png); background-size: 100% 100%;}
-	25% {background-image: url(images/ancientPuzzle.png); background-size: 100% 100%}
-	49% {background-image: url(images/ancientPuzzle.png); background-size: 100% 100%}
-	50% {background-image: url(images/galaxyVendetta.png); background-size: 100% 100%}
-	74% {background-image: url(images/galaxyVendetta.png); background-size: 100% 100%}
-	75% {background-image: url(images/mapGeneration.png); background-size: 100% 100%}
-	99% {background-image: url(images/mapGeneration.png); background-size: 100% 100%}
-	100% {background-image: url(images/evoDiceWars.png); background-size: 100% 100%;}
-}
-
 html body {
 	margin: 0px auto;
 	width: 100vw;
@@ -78,14 +66,6 @@ header div{
 	margin-top: 40vh;
 	height: 20px;
 	background-color: #ff9999;
-}
-.animation {
-	height: 100%;
-	width: 100%;
-	animation-name: example;
-	animation-duration: 30s;
-	animation-timing-function: linear;
-	animation-iteration-count: infinite;
 }
 
 footer {

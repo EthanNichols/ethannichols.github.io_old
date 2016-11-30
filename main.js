@@ -1,4 +1,8 @@
-images = ['url(images/evoDiceWars.png)', 'url(images/ancientPuzzle.png)', 'url(images/galaxyVendetta.png)', 'url(images/mapGeneration.png)']
+images = [
+'url(images/evoDiceWars.png)',
+'url(images/ancientPuzzle.png)',
+'url(images/galaxyVendetta.png)',
+'url(images/mapGeneration.png)']
 
 var n = 0;
 
