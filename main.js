@@ -7,17 +7,32 @@ images = [
 var n = 0;
 
 function left(){
-	n-= 1
+
+	n--;
+
 	if (n < 0){
-		n = images.length-1
-		}
-	document.getElementById('content').style.backgroundImage = images[n]
+		n = images.length-1;
+	}
+
+	document.getElementById('content').style.backgroundImage = images[n];
 }
 
 function right(){
-	n += 1
+
+	n++;
+
 	if (n >= images.length){
-		n = 0
+		n = 0;
 	}
-	document.getElementById('content').style.backgroundImage = images[n]
+
+	document.getElementById('content').style.backgroundImage = images[n];
 }
+
+function loadImages(){
+	for (i=0; i<images.length; i++) {
+		n++;
+		document.getElementById('content').style.backgroundImage = images[n];
+	}
+}
+
+loadImages();
