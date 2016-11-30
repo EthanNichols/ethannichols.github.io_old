@@ -5,9 +5,13 @@
 
 @keyframes example {
 	0% {background-image: url(images/evoDiceWars.png); background-size: 100% 100%;}
-	49% {background-image: url(images/evoDiceWars.png); background-size: 100% 100%;}
-	50% {background-image: url(images/ancientPuzzle.png); background-size: 100% 100%}
-	99% {background-image: url(images/ancientPuzzle.png); background-size: 100% 100%}
+	24% {background-image: url(images/evoDiceWars.png); background-size: 100% 100%;}
+	25% {background-image: url(images/ancientPuzzle.png); background-size: 100% 100%}
+	49% {background-image: url(images/ancientPuzzle.png); background-size: 100% 100%}
+	50% {background-image: url(images/galaxyVendetta.png); background-size: 100% 100%}
+	74% {background-image: url(images/galaxyVendetta.png); background-size: 100% 100%}
+	75% {background-image: url(images/mapGeneration.png); background-size: 100% 100%}
+	99% {background-image: url(images/mapGeneration.png); background-size: 100% 100%}
 	100% {background-image: url(images/evoDiceWars.png); background-size: 100% 100%;}
 }
 
@@ -45,8 +49,36 @@ header div{
 	width: 100vw;
 	height: calc(100vh - 100px - 20px);
 	margin-top: 80px;
+	padding: none;
 }
 
+#content{
+	position: absolute;
+	margin-left: 10vw;
+	margin-right: 10vw;
+	width: 80vw;
+	height: calc(100vh - 120px);
+	background-image: url(images/evoDiceWars.png);
+	background-size: 100% 100%;
+}
+
+#left{
+	position: fixed;
+	width: 10vw;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 40vh;
+	height: 20px;
+	background-color: #ffffff;
+}
+#right{
+	position: fixed;
+	width: 10vw;
+	margin-left: 90vw;
+	margin-top: 40vh;
+	height: 20px;
+	background-color: #ff9999;
+}
 .animation {
 	height: 100%;
 	width: 100%;
