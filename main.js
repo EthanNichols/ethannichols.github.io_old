@@ -30,9 +30,6 @@ function right(){
 
 function loadImages(){
 	for (i=0; i<images.length; i++) {
-		n++;
-		document.getElementById('content').style.backgroundImage = images[n];
+		document.getElementById('content').style.backgroundImage = images[i];
 	}
 }
-
-loadImages();
