@@ -1,0 +1,16 @@
+html body {
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	margin: 0px;
+}
+
+#centerCanvas {
+	width: 100%;
+	height: 100%;
+}
+
+canvas {
+	height: 100%;
+	width: 100%;
+}
