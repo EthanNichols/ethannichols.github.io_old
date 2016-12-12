@@ -57,25 +57,66 @@ void drawWaterFall() {
 void fishCaught() {
   int wood = (int)random(1000);
   
-  if (wood >= 0 && wood < 350) {
+  int bonus = tools[2].bonus;
+  
+  if (bonus > 45) {
+    wood = (int)random(10) + 1;
+
+    switch(wood) {
+    case 1:
+      increaseResource("Crayfish");
+      break;
+    case 2:
+      increaseResource("Trout");
+      break;
+    case 3:
+      increaseResource("Bass");
+      break;
+    case 4:
+      increaseResource("Tuna");
+      break;
+    case 5:
+      increaseResource("Lobster");
+      break;
+    case 6:
+      increaseResource("Swordfish");
+      break;
+    case 7:
+      increaseResource("Shark");
+      break;
+    case 8:
+      increaseResource("Monkfish");
+      break;
+    case 9:
+      increaseResource("Urchin");
+      break;
+    case 10:
+      increaseResource("Rocktail");
+      break;
+    }
+  }
+  
+  wood = (int)random(1000);
+  
+  if (wood >= 0 && wood < 350 - bonus) {
     increaseResource("Crayfish");
-  } else if (wood >= 350 && wood < 550) {
+  } else if (wood >= 350 - bonus && wood < 550 - bonus) {
     increaseResource("Trout");
-  } else if (wood >= 550 && wood < 700) {
+  } else if (wood >= 550 - bonus && wood < 700 - bonus) {
     increaseResource("Bass");
-  } else if (wood >= 700 && wood < 825) {
+  } else if (wood >= 700 - bonus && wood < 825 - bonus) {
     increaseResource("Tuna");
-  } else if (wood >= 825 && wood < 900) {
+  } else if (wood >= 825 - bonus && wood < 900 - bonus) {
     increaseResource("Lobster");
-  } else if (wood >= 900 && wood < 950) {
+  } else if (wood >= 900 - bonus && wood < 950 - bonus) {
     increaseResource("Swordfish");
-  } else if (wood >= 950 && wood < 985) {
+  } else if (wood >= 950 - bonus && wood < 985 - bonus) {
     increaseResource("Shark");
-  } else if (wood >= 985 && wood < 995) {
+  } else if (wood >= 985 - bonus && wood < 995 - bonus) {
     increaseResource("Monkfish");
-  } else if (wood >= 995 && wood < 1000) {
+  } else if (wood >= 995 - bonus && wood < 1000 - bonus) {
     increaseResource("Urchin");
-  } else if (wood >= 1000 && wood < 1000) {
+  } else if (wood >= 1000 - bonus && wood < 1000) {
     increaseResource("Rocktail");
   }
 }

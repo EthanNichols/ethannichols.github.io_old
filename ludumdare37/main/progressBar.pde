@@ -1,11 +1,11 @@
 
 String information;
-int progress = 0;
+float progress = 0;
 int treeCutting = 0;
 int mining = 0;
 int fishing = 0;
 int farming = 0;
-int maxProgress = 1;
+int maxProgress = 100;
 
 void createBar() {
 }
@@ -39,6 +39,10 @@ void drawBar() {
     } else if (player1.resource == "farm") {
       plantHarvested();
       farming = 0;
+    } else if (player1.resource == "anvil") {
+      craft();
+    } else if (player1.resource == "exit") {
+      endGame = true;
     }
   }
 
@@ -46,24 +50,46 @@ void drawBar() {
 }
 
 void mineResource() {
-  progress++;
 
   if (player1.resource == "tree") {
-    treeCutting = progress;
+    progress += tools[3].bonus / 5 + 1;
   } else if (player1.resource == "stone") {
-    mining = progress;
+    progress += tools[1].bonus / 5 + 1;
   } else if (player1.resource == "fish") {
-    fishing = progress;
+    progress += tools[2].bonus / 5 + 1;
   } else if (player1.resource == "farm") {
-    farming = progress;
+    progress += tools[0].bonus / 5 + 1;
   } else if (player1.resource == "anvil") {
-    craft();
+    progress+= maxProgress / 20;
+  } else if (player1.resource == "exit") {
+    
+    boolean allResources = true;
+
+    for (int i=0; i<slot.length; i++) {
+      if (slot[i].itemAmount == 0) {
+        allResources = false;
+      }
+    }
+
+    if (allResources) {
+      progress++;
+    }
+  }
+
+  if (player1.resource == "tree") {
+    treeCutting = (int)progress;
+  } else if (player1.resource == "stone") {
+    mining = (int)progress;
+  } else if (player1.resource == "fish") {
+    fishing = (int)progress;
+  } else if (player1.resource == "farm") {
+    farming = (int)progress;
   }
 }
 
 void setInformation() {
   if (player1.resource == "tree") {
-    information = "Cut down tree";
+    information = "Cut down Tree";
     progress = treeCutting;
   } else if (player1.resource == "stone") {
     information = "Mine Ores";
@@ -76,6 +102,21 @@ void setInformation() {
     progress = farming;
   } else if (player1.resource == "anvil") {
     information = "Craft a Tool";
+  } else if (player1.resource == "exit") {
+
+    boolean allResources = true;
+
+    for (int i=0; i<slot.length; i++) {
+      if (slot[i].itemAmount == 0) {
+        allResources = false;
+      }
+    }
+
+    if (allResources) {
+      information = "Exit the room";
+    } else {
+      information = "Collect all of the resources to exit the room";
+    }
   } else {
     information = "";
     progress = 0;

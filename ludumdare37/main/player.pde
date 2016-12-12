@@ -85,6 +85,13 @@ class player {
       yPos < 10 &&
       yPos > -60) {
       resource = "anvil";
+      
+    } else if (xPos > -250 &&
+      xPos < -150 &&
+      yPos < -300 &&
+      yPos > -350) {
+      resource = "exit";
+      
     } else {
       resource = null;
     }
