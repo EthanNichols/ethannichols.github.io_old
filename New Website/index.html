@@ -5,49 +5,47 @@
 		<meta charset="utf-8">
 		<title>Ethan Nichols</title>
 		<link rel="stylesheet" href="styles.css">
-		<script type="text/javascript" src="main.js"></script>
 	</head>
 
 	<body class="table">
 		<div id="sideBar" class="tableCell">
 				<div class="tableRow center">
-				<h1>Ethan T Nichols</h1>
+				<h1>Ethan Nichols</h1>
 				</div>
 
-				<div class="tableRow center">
-				<h3>About Me</h3>
-				</div>
+				<a href="Documents/EthanNicholsResume.pdf"><div class="tableRow center">
+					<h3>Resume</h3>
+				</div></a>
+
+				<a onclick="displayProjects()" href="#"><div class="tableRow center current">
+					<h3>Projects</h3>
+				</div></a>
+
+				<a href="https://github.com/EthanNichols"><div class="tableRow center">
+					<h3>Github</h3>
+				</div></a>
+
+				<a href="https://www.linkedin.com/in/ethantnichols/"><div class="tableRow center">
+					<h3>LinkedIn</h3>
+				</div></a>
+
+				<a onclick="displayAboutMe()" href="#"><div class="tableRow center">
+					<h3>About Me</h3>
+				</div></a>
 
 				<div class="tableRow center">
-				<h3>Projects</h3>
+					<h3>Contact Me:</h3>
+					<h5>Ethan.Thomas.Nichols@gmail.com</h5>
 				</div>
 
-				<div class="tableRow center">
-				<h3>Github</h3>
-				</div>
-
-				<div class="tableRow center">
-				<h3>LinkedIn</h3>
-				</div>
-
-				<div class="tableRow center">
-				<h3>Resume</h3>
-				</div>
-
-				<div class="tableRow center">
-				<h3>Contact Me:</h3>
-				<h3>Ethan.Thomas.Nichols@gmail</h3>
-				</div>
+				<footer class="tableRow center">&copyEthan Nichols 2017</footer>
 		</div>
 
 		<div id="content" class="tableCell">
-			<div id="goLeft" onmouseover="moveContent(-1)"></div>
-
-			<div id="moveContent">
-			Hello
-			</div>
-
-			<div id="goRight" onmouseover="moveContent(1)"></div>
+			<iframe id="iframe" src="projects.html"></iframe>
+			<div id="gradiant"></div>
 		</div>
 	</body>
+
+	<script type="text/javascript" src="main.js"></script>
 </html>

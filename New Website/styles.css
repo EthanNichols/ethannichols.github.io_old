@@ -2,12 +2,26 @@ html body {
 	width: 100vw;
 	height: 100vh;
 	margin: 0px;
+	padding: 0px;
 	overflow: hidden;
 	font-family: 'Lato', sans-serif;
 }
-
 h1 {
 	font-size: 2.3em;
+}
+
+iframe {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	border: none;
+}
+
+footer {
+	width: 20%;
+	position: absolute;
+	font-size: 1.2em;
+	bottom: 0px;
 }
 
 #sideBar {
@@ -17,34 +31,29 @@ h1 {
 }
 #sideBar div {
 	width: 100%;
-	height: calc(100% / 7);
 
 	display: table;
 	vertical-align: middle;
 	font-size: 1.2em;
-
-	padding: 5px;
 }
 
 #content {
 	width: 80%;
 	height: 100%;
-	background-color: yellow;
+	position: relative;
 }
-#moveContent {
+#content div {
+	width: 100%;
 	height: 100%;
 	position: absolute;
-}
-#goLeft {
-	width: 5%;
-	height: 100%;
-	position: absolute;
-}
-#goRight {
-	width: 5%;
-	height: 100%;
-	right: 0px;
-	position: absolute;
+
+	background: none; 
+	background: -webkit-linear-gradient(left, black , transparent 1.8%);
+	background: -o-linear-gradient(right, black , transparent 1.8%);
+	background: -moz-linear-gradient(right, black , transparent 1.8%);
+	background: linear-gradient(to right, black , transparent 1.8%);
+
+	pointer-events: none;
 }
 
 .table {
@@ -62,4 +71,98 @@ h1 {
 }
 .center {
 	text-align: center;
+}
+.current {
+	background-color: grey;
+}
+
+/*Css styles for the projects html*/
+#projects {
+	position: absolute;
+
+	align-content: center;
+}
+.project {
+	width: 30%;
+	height: 30%;
+	min-width: 300px;
+	min-height: 300px;
+
+	position: relative;
+	border-radius: 10px;
+	float: left;
+	margin: .8%;
+	padding: .8%;
+
+	background: none;
+	background: -webkit-radial-gradient(black 20%, transparent);
+	background: -o-radial-gradient(black 20%, transparent);
+	background: -moz-radial-gradient(black 20%, transparent);
+	background: radial-gradient(black 20%, transparent);
+}
+.project:hover {
+	background-color: rgba(255, 255, 255, .3);
+}
+.project:hover .info {
+	top: 0;
+}
+
+.project div {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	overflow: hidden;
+	border-radius: 10px;
+}
+.project img {
+	height: 100%;
+	position: absolute;
+
+	margin: auto;
+	top: -50%;
+	bottom: -50%;
+	left: -50%;
+	right: -50%;
+}
+.project .info {
+	width: 100%;
+	height: 100%;
+	top: 92%;
+	position: absolute;
+	background-color: rgba(255, 255, 255, .8);
+	box-sizing: border-box;
+	transition: .5s;
+}
+.info .title {
+	height: 8%;
+	font-size: 1.2em;
+	font-weight: bold;
+	text-align: center;
+
+	border-radius: 0px;
+	color: white;
+	background-color: black;
+}
+.info .description {
+	padding: 2%;
+	box-sizing: border-box;
+	border: none;
+}
+.info .links {
+	height: 8%;
+	font-size: 1.2em;
+	font-weight: bold;
+	text-align: center;
+
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+	box-sizing: border-box;
+	border: 2px solid black;
+	position: absolute;
+	bottom: 0;
+}
+.links div {
+	width: 50%;
+	float: left;
+	border: none;
 }

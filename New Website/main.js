@@ -1,13 +1,20 @@
-var xPos = 0;
+var projectLink = document.getElementsByClassName("tableRow center")[2];
+var aboutMeLink = document.getElementsByClassName("tableRow center")[5];
 
-var repeat = false;
+var iframeContent = document.getElementById("iframe");
 
-function moveContent(amount) {
-	var content = document.getElementById("moveContent");
-	xPos += amount;
-	content.style.left = xPos + "px";
+function displayProjects() {
+	iframeContent.src = "projects.html";
+	projectLink.className = "tableRow center current";
+	aboutMeLink.className = "tableRow center";
 }
 
-function stop() {
-	repeat = false;
+function displayAboutMe() {
+	iframeContent.src = "aboutMe.html";
+	projectLink.className = "tableRow center";
+	aboutMeLink.className = "tableRow center current";
+}
+
+function alertUser() {
+	alert(iframeContent);
 }
