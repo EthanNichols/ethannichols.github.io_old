@@ -1,3 +1,4 @@
+var url = window.location.href; 
 var projectLink = document.getElementsByClassName("tableRow center")[2];
 var aboutMeLink = document.getElementsByClassName("tableRow center")[5];
 
@@ -15,4 +16,8 @@ function displayAboutMe() {
 	aboutMeLink.className = "tableRow center current";
 }
 
-var current = document.getElementsByClassName("current")[0].click();
+if (url.includes("me")) {
+	aboutMeLink.click();
+} else {
+	projectLink.click();
+}
