@@ -15,6 +15,4 @@ function displayAboutMe() {
 	aboutMeLink.className = "tableRow center current";
 }
 
-function alertUser() {
-	alert(iframeContent);
-}
+var current = document.getElementsByClassName("current")[0].click();
