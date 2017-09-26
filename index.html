@@ -5,36 +5,47 @@
 		<meta charset="utf-8">
 		<title>Ethan Nichols</title>
 		<link rel="stylesheet" href="styles.css">
-		<script src="main.js"></script>
 	</head>
 
-	<body>
+	<body class="table">
+		<div id="sideBar" class="tableCell">
+				<div class="tableRow center">
+				<h1>Ethan Nichols</h1>
+				</div>
 
-	<header>
-		<div class="largerFont">Ethan Nichols</div>
-		
-		<div>
-		New Media Interactive Development student at RIT
-		<br>All I want to do is make games
+				<a href="Documents/EthanNicholsResume.pdf"><div class="tableRow center">
+					<h3>Resume</h3>
+				</div></a>
+
+				<a onclick="displayProjects()" href="#projects"><div class="tableRow center current">
+					<h3>Projects</h3>
+				</div></a>
+
+				<a href="https://github.com/EthanNichols"><div class="tableRow center">
+					<h3>Github</h3>
+				</div></a>
+
+				<a href="https://www.linkedin.com/in/ethantnichols/"><div class="tableRow center">
+					<h3>LinkedIn</h3>
+				</div></a>
+
+				<a onclick="displayAboutMe()" href="#me"><div class="tableRow center">
+					<h3>About Me</h3>
+				</div></a>
+
+				<div class="tableRow center">
+					<h3>Contact Me:</h3>
+					<h5>Ethan.Thomas.Nichols@gmail.com</h5>
+				</div>
+
+				<div class="footer center">&copyEthan Nichols 2017</div>
 		</div>
-	</header>
 
-	<div id="center">
-		<div id="left" onclick="left()"></div>
-		<a href="https://enichols.itch.io/"><div id="content"></div></a>
-		<div id="right" onclick="right()"></div>
-	</div>
-
-	<footer>
-	<a href="mailto:ethan.thomas.nichols@gmail.com"><div>CONTACT</div></a>
-	<a href="resume.pdf"><div>RESUME</div></a>
-	<a href="https://enichols.itch.io/"><div>PROJECTS</div></a>
-	<a href="https://github.com/EthanNichols"><div>GITHUB</div></a>
-	<a href="https://www.linkedin.com/in/ethan-nichols-b18197127"><div>LINKEDIN</div></a>
-	<!--<a href="https://www.youtube.com/channel/UCbuqRB_29_GSSB629xxX0jQ"><div>DEV.VLOG</div></a>
-	</footer>-->
-
+		<div id="content" class="tableCell">
+			<iframe id="iframe" src="projects.html"></iframe>
+			<div id="gradiant"></div>
+		</div>
 	</body>
 
-	<script>loadImages()</script>
+	<script type="text/javascript" src="main.js"></script>
 </html>

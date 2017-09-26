@@ -1,35 +1,23 @@
-images = [
-'url(images/evoDiceWars.png)',
-'url(images/ancientPuzzle.png)',
-'url(images/galaxyVendetta.png)',
-'url(images/mapGeneration.png)']
+var url = window.location.href; 
+var projectLink = document.getElementsByClassName("tableRow center")[2];
+var aboutMeLink = document.getElementsByClassName("tableRow center")[5];
 
-var n = 0;
+var iframeContent = document.getElementById("iframe");
 
-function left(){
-
-	n--;
-
-	if (n < 0){
-		n = images.length-1;
-	}
-
-	document.getElementById('content').style.backgroundImage = images[n];
+function displayProjects() {
+	iframeContent.src = "projects.html";
+	projectLink.className = "tableRow center current";
+	aboutMeLink.className = "tableRow center";
 }
 
-function right(){
-
-	n++;
-
-	if (n >= images.length){
-		n = 0;
-	}
-
-	document.getElementById('content').style.backgroundImage = images[n];
+function displayAboutMe() {
+	iframeContent.src = "aboutMe.html";
+	projectLink.className = "tableRow center";
+	aboutMeLink.className = "tableRow center current";
 }
 
-function loadImages(){
-	for (i=0; i<images.length; i++) {
-		document.getElementById('content').style.backgroundImage = images[i];
-	}
+if (url.includes("me")) {
+	aboutMeLink.click();
+} else {
+	projectLink.click();
 }

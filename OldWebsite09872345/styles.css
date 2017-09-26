@@ -1,0 +1,119 @@
+@font-face {
+	font-family: pixelFont;
+}
+
+html body {
+	margin: 0px auto;
+	width: 100vw;
+	height: 100vh;
+	background-color: #081828;
+	background-size: 100px 100px;
+	overflow: hidden;
+	font-family: pixelFont;
+}
+
+header {
+	position: fixed;
+	width: 100vw;
+	height: 100px;
+	background-color: #081828;
+}
+
+header div{
+	position: fixed;
+	float: left;
+	left: 500px;
+	color: white;
+	font-size: 30px;
+	padding: 5px;
+	height: 60px;
+	text-align: center;
+}
+
+#center {
+	position: fixed;
+	width: 100vw;
+	height: calc(100vh - 120px);
+	margin-top: 80px;
+	padding: none;
+	background-color: #0F2D4C; 
+}
+
+#content{
+	position: absolute;
+	margin-left: 11vw;
+	margin-right: 11vw;
+	margin-top: 2.5vh;
+	width: 78vw;
+	height: calc(95vh - 120px);
+	background-image: url(images/evoDiceWars.png);
+	background-size: 100% 100%;
+}
+
+#left{
+	position: absolute;
+	margin-left: .5vw;
+	margin-right: 0vw;
+	width: 10vw;
+	height: calc(100vh - 120px);
+	background-image: url(images/leftArrow.png);
+	background-position: center; 
+	background-repeat: no-repeat;
+	background-size: 100% 10%;
+}
+
+#right{
+	position: absolute;
+	margin-left: 89.5vw;
+	margin-right: 10vw;
+	width: 10vw;
+	height: calc(100vh - 120px);
+	background-image: url(images/rightArrow.png);
+	background-position: center; 
+	background-repeat: no-repeat;
+	background-size: 100% 10%;
+}
+
+#left:hover {
+	background-image: url(images/leftArrowHover.png);
+	background-position: center; 
+	background-repeat: no-repeat;
+	background-size: 100% 10%;
+}
+
+#right:hover {
+	background-image: url(images/rightArrowHover.png);
+	background-position: center; 
+	background-repeat: no-repeat;
+	background-size: 100% 10%;
+}
+
+footer {
+	position: fixed;
+	width: 100vw;
+	height: 75px;
+	margin-top: calc(100vh - 40px);
+	margin-bottom: 0px;
+	align-content: center;
+	background-color: #081828;
+}
+
+footer div{
+	float: left;
+	color: white;
+	font-size: 30px;
+	padding-left: 1.5vw;
+	padding-right: 1.5vw;
+	padding-top: 20px;
+	transform: translateY(-10px);
+	line-height: 20px;
+}
+
+footer div:hover {
+	color: lightblue;
+}
+
+.largerFont {
+	font-size: 70px;
+	left: 10px;
+}
