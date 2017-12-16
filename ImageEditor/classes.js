@@ -1,3 +1,4 @@
+//Class to hold the RGBA and total value for each pixel
 class color {
 	constructor(r, g, b, a) {
 		this.r = r;
@@ -11,6 +12,7 @@ class color {
 	}
 }
 
+//Class to hold the XY position of the pixel
 class pos {
 	constructor(x, y) {
 		this.x = x;
@@ -18,6 +20,7 @@ class pos {
 	}
 }
 
+//Class to hold all colors and an array of positions with the same color
 class sameColor {
 	constructor(color) {
 		this.color = color;

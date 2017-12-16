@@ -1,109 +1,166 @@
 window.onload = start;
 
-let fileUpload, imgDisplay, canvas
-let originalImage, editedImage;
+let canvas, originalImage;
+let pixelColors = [];
 
-let sameColors = [];
-let pixelData;
-
+//This is where the program starts
 function start() {
+
+	//Find all the elements first
 	setElements();
 
-	fileUpload.value = "";
-
+	//Start the main loop
 	setInterval(loop, 1000 / 60);
 }
 
+//Main loop
 function loop() {
-
 }
 
+//Get and set variables to all the relevant elements in the browser
 function setElements() {
-	fileUpload = document.querySelector("#fileUpload");
-	fileUpload.onchange = uploadedFile;
-
-	imgDisplay = document.querySelector("img");
+	document.querySelector("#fileUpload").onchange = uploadedFile;
 
 	canvas = document.createElement("canvas");
 }
 
+//Set the original image and display the the file the user uploaded
 function uploadedFile() {
+
+	//Remove the classname, so that is doesn't take up the entire screen
 	this.className = "";
+
+	//Make sure there is a file to read
 	if (this.files[0] === null || this.files[0] === undefined) { return; }
 
+	//Create a new image and set it to the file the user uploaded
 	let loadImage = new Image();
 	loadImage.src = window.URL.createObjectURL(this.files[0]);
 
+	//Wait for the original image to finish loading
 	loadImage.onload = function() {
-		imgDisplay.src = loadImage.src;
 		originalImage = loadImage;
 
+		//Set and display the starting image
 		setCanvas(loadImage);
 
+		//Get all the pixel data in the canvas
 		getPixelData();
 	}
 }
 
+//Set the image in the canvas, and display the image
 function setCanvas(image) {
+
+	//Set the canvas width and height
 	canvas.width = image.width;
 	canvas.height = image.height;
 
+	//Draw the 2d image on the canvas
 	let content = canvas.getContext('2d');
 	content.drawImage(image, 0, 0);
+
+	//Display the image in the browser
+	document.querySelector("img").src = image.src;
 }
 
+//Read all the pixels in the images and store them in an array
 function getPixelData() {
 
+	//Get the canvas' 2d content
 	let content = canvas.getContext('2d');
-	pixelData = [];
 
-	for (let x=0; x<originalImage.width; x++) {
+	//The chunk size, and calculate the grid for the chunks
+	let chunkSize = 10;
+	let rowChunks = Math.floor(originalImage.width / chunkSize);
+	let colChunks = Math.floor(originalImage.height / chunkSize);
 
-		let row = []
+	//Loop through the grid of chunks
+	for (let x=0; x<=rowChunks; x++) {
+		for (let y=0; y<=colChunks; y++) {
 
-		for (let y=0; y<originalImage.height; y++) {
-
-			let pixelData = content.getImageData(x, y, 1, 1).data;
-			let setColor = new color(pixelData[0], pixelData[1], pixelData[2], pixelData[3]);
-			let similarColor;
-
-			if (similarColor = groupColors(setColor, x, y) != null) {
-				setColor = similarColor;
+			//If the chunk is complete add the read the chunk contents
+			if (x != rowChunks &&
+				y != colChunks) {
+				readChunk(x * chunkSize, y * chunkSize, chunkSize, chunkSize);
+				continue;
 			}
 
-			console.log((x * originalImage.width + y + 1) / (originalImage.width * originalImage.height));
-			
-			row.push(setColor);
-		}
+			//If the chunk has excess of the row read the modified chunk contents
+			if (x == rowChunks &&
+				y != colChunks &&
+				originalImage.height % chunkSize != 0) {
+				readChunk(x * chunkSize, y * chunkSize, originalImage.width % chunkSize, chunkSize);
+				continue;
+			}
 
-		pixelData.push(row);
+			//If the chunk has excess of the col read the modified chunk contents
+			if (y == colChunks &&
+				x != rowChunks &&
+				originalImage.width % chunkSize != 0) {
+				readChunk(x * chunkSize, y * chunkSize, chunkSize, originalImage.height % chunkSize);
+				continue;
+			}
+		}
 	}
 
-	console.log("Completed Image Reading!");
-	console.log(sameColors);
+	//Read the last chunk of the image
+	readChunk((rowChunks+1) * chunkSize, (colChunks+1) * chunkSize, originalImage.width%chunkSize, originalImage.height%chunkSize, true);
 }
 
-function groupColors(pixelColor, xPos, yPos) {
-	if (sameColors.length == 0)
-	{
-		sameColors.push(new sameColor(pixelColor));
-		sameColors[0].addPos(new pos(xPos, yPos));
-		return null;
-	}
+///Get all the pixels in a chunk and put them into a grouped color array
+function readChunk(startX, startY, width, height, final = false) {
 
-	for (let i=0; i<sameColors.length; i++) {
-		if (sameColors[i].color.r == pixelColor.r &&
-			sameColors[i].color.g == pixelColor.g &&
-			sameColors[i].color.b == pixelColor.b &&
-			sameColors[i].color.a == pixelColor.a) {
-			sameColors[i].addPos(new pos(xPos, yPos));
-			return sameColors[i];
-		} else {
-			if (pixelColor.value > sameColors[i].color.value) {
-				sameColors.splice(i, 0, new sameColor(pixelColor));
-				sameColors[i].addPos(new pos(xPos, yPos));
-				return null;
+	//Get the canvas' 2d content 
+	let content = canvas.getContext('2d');
+
+	//Create a new thread (SetInterval acts as a thread)
+	let setFunc = setInterval( function() {
+
+		//Loop through the chunk width and height from the start position
+		for (let x = startX; x<startX+width; x++) {
+			for (let y = startY; y<startY+height; y++) {
+
+				//Get the pixel, it's color and group it with the other colors
+				let pixel = content.getImageData(x, y, 1, 1).data;
+				let pixelColor = new color(pixel[0], pixel[1], pixel[2], pixel[3]);
+				groupColors(pixelColor, x, y);
 			}
 		}
+
+		//Test if this is the last thread
+		if (final) {
+
+			//Create a buffer array
+			let sortColors = [];
+
+			//Loop through all of the colors and add them to the sorted array
+			for (let i=0; i<pixelColors.length; i++) {
+				if (pixelColors[i]) {
+					sortColors.push(pixelColors[i]);
+				}
+			}
+
+			//Set the colors pixels to the sorted array
+			pixelColors = sortColors;
+		}
+
+		//Delete the thread (Clear the set interval)
+		clearInterval(setFunc);
+	}, 1);
+}
+
+///Group pixels that have the same color into the same array
+function groupColors(pixelColor, xPos, yPos) {
+
+	//Test if the pixel's color doesn't exists
+	if (!pixelColors[pixelColor.value]) {
+
+		//Set the color value index to the color and add the pixel position
+		pixelColors[pixelColor.value] = new sameColor(pixelColor);
+		pixelColors[pixelColor.value].addPos(new pos(xPos, yPos));
 	}
+
+	//If the color exists add it to the list and return the color
+	pixelColors[pixelColor.value].addPos(new pos(xPos, yPos));
 }
