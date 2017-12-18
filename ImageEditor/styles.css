@@ -11,6 +11,19 @@
 	overflow: hidden;
 }
 
+#loadingBar {
+	height: 10px;
+	width: 100%;
+
+	position: absolute;
+	bottom: 0px;
+}
+#loadingBar div {
+	height: 100%;
+	width: 0px;
+	background-color: black;
+}
+
 img {
 	object-fit: contain;
 	image-rendering: pixelated;

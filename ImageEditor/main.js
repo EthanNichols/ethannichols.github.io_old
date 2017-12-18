@@ -1,6 +1,6 @@
 window.onload = start;
 
-let canvas, originalImage;
+let canvas, originalImage, loadingBar;
 let pixelColors = [];
 
 //This is where the program starts
@@ -15,11 +15,47 @@ function start() {
 
 //Main loop
 function loop() {
+	loadBar();
+}
+
+//Set the display for the loading bar
+function loadBar() {
+
+
+	if (loadingBar.firstElementChild.style.width == "100%") {
+
+		//Start the timer to fade the loading bar out
+		if (loadingBar.timer > 0) {
+			loadingBar.timer--;
+			loadingBar.style.opacity = loadingBar.timer / 100;
+
+		//When the timer is finished don't display the loading bar
+		} else {
+			loadingBar.style.display = "none";
+		}
+
+	//Set the width of the loading bar
+	} else {
+		loadingBar.firstElementChild.style.width = ((loadingBar.progress / loadingBar.threads) * 100) + "%";
+	}
+}
+
+//Reset the loading bar data
+function resetLoadingBar() {
+	loadingBar.progress = 0;
+	loadingBar.threads = 0;
+	loadingBar.timer = 100;
+	loadingBar.style.display = null;
+	loadingBar.style.opacity = null;
+
+	loadingBar.firstElementChild.style.width = "0px";
 }
 
 //Get and set variables to all the relevant elements in the browser
 function setElements() {
 	document.querySelector("#fileUpload").onchange = uploadedFile;
+
+	loadingBar = document.querySelector("#loadingBar");
 
 	canvas = document.createElement("canvas");
 }
@@ -67,6 +103,8 @@ function setCanvas(image) {
 //Read all the pixels in the images and store them in an array
 function getPixelData() {
 
+	resetLoadingBar();
+
 	//Get the canvas' 2d content
 	let content = canvas.getContext('2d');
 
@@ -83,6 +121,7 @@ function getPixelData() {
 			if (x != rowChunks &&
 				y != colChunks) {
 				readChunk(x * chunkSize, y * chunkSize, chunkSize, chunkSize);
+				loadingBar.threads++;
 				continue;
 			}
 
@@ -91,6 +130,7 @@ function getPixelData() {
 				y != colChunks &&
 				originalImage.height % chunkSize != 0) {
 				readChunk(x * chunkSize, y * chunkSize, originalImage.width % chunkSize, chunkSize);
+				loadingBar.threads++;
 				continue;
 			}
 
@@ -99,6 +139,7 @@ function getPixelData() {
 				x != rowChunks &&
 				originalImage.width % chunkSize != 0) {
 				readChunk(x * chunkSize, y * chunkSize, chunkSize, originalImage.height % chunkSize);
+				loadingBar.threads++;
 				continue;
 			}
 		}
@@ -106,6 +147,7 @@ function getPixelData() {
 
 	//Read the last chunk of the image
 	readChunk((rowChunks+1) * chunkSize, (colChunks+1) * chunkSize, originalImage.width%chunkSize, originalImage.height%chunkSize, true);
+	loadingBar.threads++;
 }
 
 ///Get all the pixels in a chunk and put them into a grouped color array
@@ -141,9 +183,14 @@ function readChunk(startX, startY, width, height, final = false) {
 				}
 			}
 
+
 			//Set the colors pixels to the sorted array
 			pixelColors = sortColors;
 		}
+
+		//Update the loading bar display
+		loadingBar.progress++;
+		loadBar();
 
 		//Delete the thread (Clear the set interval)
 		clearInterval(setFunc);
