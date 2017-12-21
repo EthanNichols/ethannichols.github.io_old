@@ -40,6 +40,51 @@ function loadBar() {
 	}
 }
 
+//Set the UI values based on the image loaded
+function setUI() {
+	document.querySelector("#colorAmount").children[0].disabled = false;
+	document.querySelector("#colorAmount").children[0].min = 1;
+	document.querySelector("#colorAmount").children[0].max = pixelColors.length;
+	document.querySelector("#colorAmount").children[0].value = pixelColors.length;
+
+	document.querySelector("#colorAmount").children[1].disabled = false;
+	document.querySelector("#colorAmount").children[1].min = 1;
+	document.querySelector("#colorAmount").children[1].max = pixelColors.length;
+	document.querySelector("#colorAmount").children[1].value = pixelColors.length;
+}
+
+//Set all of the UI color values to be the same
+function updateColorAmount() {
+
+	//Make sure the value isn't a decimal
+	this.value = Math.floor(this.value);
+
+	//Keep the value within the min and max values
+	if (this.value == "") {this.value = 1;}
+	if (this.value < 1) {this.value = 1;}
+	if (this.value > parseInt(this.max)) {this.value = parseInt(this.max);}
+
+	//Set all the values equal to the changed value
+	for (let i=0; i<this.parentNode.children.length; i++) {
+		this.parentNode.children[i].value = this.value;
+	}
+}
+
+//Get and set variables to all the relevant elements in the browser
+function setElements() {
+	document.querySelector("#fileUpload").onchange = uploadedFile;
+
+	loadingBar = document.querySelector("#loadingBar");
+
+	canvas = document.createElement("canvas");
+
+	document.querySelector("#colorAmount").children[0].disabled = true;
+	document.querySelector("#colorAmount").children[1].disabled = true;
+
+	document.querySelector("#colorAmount").children[0].addEventListener('input', updateColorAmount);
+	document.querySelector("#colorAmount").children[1].addEventListener('input', updateColorAmount);
+}
+
 //Reset the loading bar data
 function resetLoadingBar() {
 	loadingBar.progress = 0;
@@ -51,20 +96,12 @@ function resetLoadingBar() {
 	loadingBar.firstElementChild.style.width = "0px";
 }
 
-//Get and set variables to all the relevant elements in the browser
-function setElements() {
-	document.querySelector("#fileUpload").onchange = uploadedFile;
-
-	loadingBar = document.querySelector("#loadingBar");
-
-	canvas = document.createElement("canvas");
-}
-
 //Set the original image and display the the file the user uploaded
 function uploadedFile() {
 
 	//Remove the classname, so that is doesn't take up the entire screen
 	this.className = "";
+	this.zIndex = 0;
 
 	//Make sure there is a file to read
 	if (this.files[0] === null || this.files[0] === undefined) { return; }
@@ -182,10 +219,11 @@ function readChunk(startX, startY, width, height, final = false) {
 					sortColors.push(pixelColors[i]);
 				}
 			}
-
-
 			//Set the colors pixels to the sorted array
 			pixelColors = sortColors;
+
+			//Set the input UI
+			setUI();
 		}
 
 		//Update the loading bar display
