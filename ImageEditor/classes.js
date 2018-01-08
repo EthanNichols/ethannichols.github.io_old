@@ -10,6 +10,10 @@ class color {
 		this.value += b*(255 * 2);
 		this.value += a*(255 * 3);
 	}
+
+	getRGBA() {
+		return "rgba(" + this.r + "," + this.g + "," + this.b + "," + this.a + ")";
+	}
 }
 
 //Class to hold the XY position of the pixel
@@ -24,7 +28,11 @@ class pos {
 class sameColor {
 	constructor(color) {
 		this.color = color;
+		this.sortedColorPos = 0;
+		this.sortedAmountPos = 0;
 		this.positions = []
+
+		this.gainedColors = [];
 	}
 
 	addPos(pos) {
