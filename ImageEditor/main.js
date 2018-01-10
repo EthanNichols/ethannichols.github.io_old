@@ -7,6 +7,9 @@ let sortedColorAmount = [];
 
 let prevColorAmount = 0;
 
+let pixelColorThreads = 0;
+let finishedColoringThreads = 0;
+
 //This is where the program starts
 function start() {
 
@@ -32,7 +35,7 @@ function setElements() {
 }
 //Main loop
 function loop() {
-	loadBar();
+	//loadBar();
 }
 
 
@@ -40,13 +43,15 @@ function loop() {
 //Set the display for the loading bar
 function loadBar() {
 
+	console.log(loadingBar.progress + " " + loadingBar.threads)
 
-	if (loadingBar.firstElementChild.style.width == "100%") {
+	if (((loadingBar.progress / loadingBar.threads) * 100) >= 100) {
 
 		//Start the timer to fade the loading bar out
 		if (loadingBar.timer > 0) {
 			loadingBar.timer--;
 			loadingBar.style.opacity = loadingBar.timer / 100;
+			loadingBar.firstElementChild.style.width = "100%";
 
 		//When the timer is finished don't display the loading bar
 		} else {
@@ -55,6 +60,10 @@ function loadBar() {
 
 	//Set the width of the loading bar
 	} else {
+		loadingBar.style.display = null;
+		loadingBar.style.opacity = 1;
+		loadingBar.timer = 100;
+
 		loadingBar.firstElementChild.style.width = ((loadingBar.progress / loadingBar.threads) * 100) + "%";
 	}
 }
@@ -106,11 +115,17 @@ function updateColorAmount() {
 
 function editPicture(colorAmount, editType = null) {
 	
+	colorAmount = sortedColors.length - colorAmount;
 	let content = canvas.getContext('2d');
 	//content.drawImage(originalImage, 0, 0);
 
-	//randomEdit(sortedColors.length - colorAmount);
-	removeSmallestEdit(sortedColors.length - colorAmount);
+	removeSmallest(colorAmount);
+
+	displayCanvas();
+}
+function displayCanvas() {
+
+	console.log("HI");
 
 	let editedImage = new Image();
 	let localURL = canvas.toDataURL("image/png");
@@ -120,77 +135,47 @@ function editPicture(colorAmount, editType = null) {
 		setCanvas(editedImage);
 	}
 }
-function removeSmallestEdit(colorAmount) {
+function removeSmallest(colorAmount) {
 	let content = canvas.getContext('2d');
 
 	if (prevColorAmount > colorAmount) {
 
 		for(let i=prevColorAmount; i>=colorAmount; i--) {
 
-			content.fillStyle = sortedColorAmount[i].color.getRGBA();
-			sortedColorAmount[i].positions.forEach(function(e) {
-				content.fillRect(e.x, e.y, 1, 1);
-			});
+			let color = sortedColorAmount[i].color.getRGBA();
 
-			sortedColors[sortedColorAmount[i].sortedColorPos].gainedColors.forEach(function(f) {
-				sortedColorAmount[f].positions.forEach(function(e) {
-					content.fillRect(e.x, e.y, 1, 1)
-				});
-			});
-			if (i != colorAmount) {sortedColorAmount[i].gainedColors = [];}
+			paintPixels(sortedColorAmount[i].positions, color);
+			paintPixels(sortedColorAmount[i].gainedColors, color);
+
+			if (i != colorAmount) { sortedColorAmount[i].gainedColors = [];}
 		}
+	} else {
 
-		return;
-	}
+		for (let i=prevColorAmount; i<colorAmount; i++) {
 
-	for (let i=prevColorAmount; i<colorAmount; i++) {
+			let localPos = parseInt(i + 1);
+			if (localPos >= sortedColorAmount.length) {localPos -= 2;}
 
-		let localPos = parseInt(sortedColorAmount[i].sortedColorPos + 1);
-		if (localPos >= sortedColorAmount.length) {localPos -= sortedColorAmount.length;}
+			let color = sortedColorAmount[localPos].color.getRGBA();
 
-		content.fillStyle = sortedColors[localPos].color.getRGBA();
+			let localArray = sortedColorAmount[localPos].gainedColors;
+			localArray = localArray.concat(sortedColorAmount[i].gainedColors);
+			localArray = localArray.concat(sortedColorAmount[i].positions);
+			sortedColorAmount[localPos].gainedColors = localArray;
 
-		sortedColorAmount[i].positions.forEach(function(e) {
-			content.fillRect(e.x, e.y, 1, 1);
-		});
-
-		sortedColorAmount[i].gainedColors.forEach(function(f) {
-			sortedColorAmount[f].positions.forEach(function(e) {
-				content.fillRect(e.x, e.y, 1, 1)
-			});
-		});
-
-		sortedColors[localPos].gainedColors = sortedColors[localPos].gainedColors.concat(sortedColors[i].gainedColors);
-		sortedColors[localPos].gainedColors.push(sortedColors[i].sortedColorPos);
+			if (i + 1 == colorAmount) {
+				paintPixels(sortedColorAmount[localPos].gainedColors, color);
+			}
+		}
 	}
 }
-function randomEdit(colorAmount) {
-
-	let usedColors = sortedColors.slice();
+function paintPixels(pixelPositions, color) {
 	let content = canvas.getContext('2d');
+	content.fillStyle = color;
 
-	for (let i=0; i<colorAmount; i++) {
-
-		let randNum = Math.floor(Math.seededRandom(0, usedColors.length, colorAmount));
-		let randNum2 = Math.floor(Math.seededRandom(0, usedColors.length, randNum));
-
-		while (randNum == randNum2) {
-			randNum2++;
-			if (randNum2 >= usedColors.length) {randNum2 -= usedColors.length;}
-		}
-
-		usedColors[randNum].positions.forEach(function(e) {
-			content.fillStyle = usedColors[randNum2].color.getRGBA();
-			content.fillRect(e.x, e.y, 1, 1);
-		});
-
-		usedColors[randNum2].positions = usedColors[randNum2].positions.concat(usedColors[randNum].positions);
-
-		let index = usedColors.indexOf(usedColors[randNum]);
-		usedColors.splice(index, 1);
-	}
-
-	usedColors = null;
+	pixelPositions.forEach(function(e) {
+		content.fillRect(e.x, e.y, 1, 1);
+	});
 }
 
 
@@ -330,14 +315,19 @@ function sortColors() {
 
 	//Sort the pixels by the amount of the same color
 	sortedColorAmount = sortedColors.slice();
-	sortedColorAmount.sort(function(a,b) { return a.positions.length - b.positions.length});
+	sortedColorAmount.sort(function(a,b) { 
+		let localPos = a.positions.length - b.positions.length;
+
+		if (localPos == 0) {
+			return a.color.value - b.color.value;
+		}
+
+		return localPos;
+	});
 
 	for (let i=0; i<sortedColors.length; i++) {
 		sortedColorAmount[i].sortedAmountPos = i;
 	}
-
-	console.log(sortedColors);
-	console.log(sortedColorAmount);
 }
 ///Group pixels that have the same color into the same array
 function groupColors(pixelColor, xPos, yPos) {
@@ -348,6 +338,7 @@ function groupColors(pixelColor, xPos, yPos) {
 		//Set the color value index to the color and add the pixel position
 		pixelColors[pixelColor.value] = new sameColor(pixelColor);
 		pixelColors[pixelColor.value].addPos(new pos(xPos, yPos));
+		return;
 	}
 
 	//If the color exists add it to the list and return the color
